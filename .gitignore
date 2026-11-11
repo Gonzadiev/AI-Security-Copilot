@@ -1,0 +1,15 @@
+
+__pycache__/
+*.pyc
+.venv/
+.env
+.streamlit/secrets.toml
+
+data/active_auth_logs.csv
+data/uploaded_auth_logs.csv
+
+alertas.json
+incidentes.json
+informe.md
+
+.vscode/
