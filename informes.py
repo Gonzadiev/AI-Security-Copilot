@@ -139,7 +139,14 @@ if st.button("Analizar registros de seguridad"):
                     f"Faltan columnas: {faltantes}"
                 )
 
-            df = df[["timestamp", "ip", "status"]].copy()
+            
+            columnas = ["timestamp", "ip", "status"]
+
+            if "username" in df.columns:
+                columnas.append("username")
+
+            df = df[columnas].copy()
+
 
             if df.empty or (df == "").any().any():
                 raise ValueError("Hay registros vacíos.")

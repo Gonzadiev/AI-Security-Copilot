@@ -8,6 +8,18 @@ BASE = Path(__file__).resolve().parent
 
 # Catálogo ampliable de hipótesis
 CATALOGO = {
+
+    "multicuenta_automatizada": {
+        "evento": "INTENTOS_MULTICUENTA",
+        "hipotesis": "Posibles intentos automatizados contra varias cuentas.",
+        "comprobacion": "Revisar las cuentas afectadas, la frecuencia y el origen de las conexiones."
+    },
+    "multicuenta_legitima": {
+        "evento": "INTENTOS_MULTICUENTA",
+        "hipotesis": "Varios usuarios legítimos podrían compartir una misma IP.",
+        "comprobacion": "Comprobar si la IP pertenece a una VPN, NAT o equipo compartido."
+    },
+
     "error_usuario": {
         "evento": "POSIBLE_FUERZA_BRUTA",
         "hipotesis": "Errores de contraseña de un usuario legítimo.",
@@ -67,9 +79,20 @@ for incidente in incidentes:
         ):
             continue
 
-        hechos.append(
-            f"- {alerta['fecha']}: {alerta['tipo']}"
-        )
+        
+        if alerta["tipo"] == "INTENTOS_MULTICUENTA":
+            usuarios = alerta.get("usuarios", [])
+
+            hechos.append(
+                f"- {alerta['fecha']}: intentos fallidos "
+                f"contra {len(usuarios)} cuentas distintas: "
+                f"{', '.join(usuarios)}"
+            )
+        else:
+            hechos.append(
+                f"- {alerta['fecha']}: {alerta['tipo']}"
+            )
+
 
     informe += f"## Incidente #{incidente['id']}\n\n"
     informe += "### Evidencias registradas\n\n"
