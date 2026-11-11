@@ -39,7 +39,7 @@ Verified facts are separated from AI-generated recommendations to reduce unsuppo
 
 **1. Clone the repository**
 
-`git clone <REPOSITORY_URL>`
+`git clone https://github.com/Gonzadiev/AI-Security-Copilot.git`
 
 **2. Install dependencies**
 
